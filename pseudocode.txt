@@ -1,0 +1,38 @@
+At least a 2 people game
+
+First figure out how this will play out.
+
+So once the program runs, we can have some options for the users to select from. They can be: play hangman or quit. Each time the play hangman option is selected we are creating a new game of hangman, so that means we create a new instance of Hangman each time. At this point, the users should decide who gets to choose the word (be the hanger) and who tries to guess it. So diplay: "Please figure out who will pick the word/s and who will be guessing " 
+
+Once the roles have been figured out, the word picker will provide an argument that will be their word or phrase  to the hangman constructor. 
+
+Once the instance is created, immediately display the list of available letters and some kind of display for placing the correct letters in their positions. 
+
+
+
+When we create hangman(), 
+
+
+Create a class called HangMan.
+The Hangman should have the following attributes:
+   - an array to hold all the letters a-z
+   - an array to hold the letters for the received guess word
+   - a hash variable that contains the indices as keys and lettrs as values. Initialize it with the array holding the guess word  
+   - an array to display to the player their correct guesses and amount of letters remaining. As default, have it contain "___" (progress)
+
+The Hangman should have the following methods:
+   - guess_letter(letter): 
+        --receives letter guess from player.
+        --Removes this letter from array that holds all the letters
+        --Queries whether this letter is present inside the array that holds the guess word. Remove all occurrences of that letter in the array. 
+        -- *Challenge* Need to figure out a way to map the correct guessed letters to their correct position to have it displayed for the player. Solution: Use the hash data structure and array containing your progress. Loop the number of times the letter occurs in the word. In the loop set like the following:
+            array1[hash.key("l")] = "1"
+            hash.delete(hash.key("l))
+            i++
+        This way we get the correct index position to place our letters in the progress array. Because we have the correct indices and their correponding values in the hash, we can reference this hash by obtaining the key(index value), using that value as the index to set our progress array. 
+        --return true or false depending on whether the guess was correct
+    - display_progress
+        -- displays the progress array to player
+
+
+
