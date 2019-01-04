@@ -67,8 +67,8 @@ while true
 
     case choice
     when "1"
-        puts "Decide who will play Hangman and who will be the Judge"
-        puts "Once decided, Judge, guess a word: "
+        puts "Decide who will play Hangman and who will pick the word"
+        puts "Once decided, please choose a word: "
         word = gets.chomp
         60.times {puts ""}
         hangman = Hangman.new(word)
