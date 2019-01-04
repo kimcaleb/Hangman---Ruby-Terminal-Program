@@ -1,7 +1,9 @@
 class Hangman
-    attr_reader :incorrect_guesses
+    attr_reader :incorrect_guesses, :bingo, :counter
     def initialize(word)
-       word_lower = word.downcase
+        @bingo = word.length
+        @counter = 0
+        word_lower = word.downcase
         @array_progress = []
         x = 0
         while x < word_lower.length
@@ -47,6 +49,7 @@ class Hangman
         until i == count
             @array_progress[@hash.key(letter)] = letter
             @hash.delete(@hash.key(letter))
+            @counter += 1
             i += 1
         end
     end
@@ -67,6 +70,7 @@ while true
         puts "Decide who will play Hangman and who will be the Judge"
         puts "Once decided, Judge, guess a word: "
         word = gets.chomp
+        60.times {puts ""}
         hangman = Hangman.new(word)
         hangman.display
         puts ""
@@ -79,12 +83,17 @@ while true
                 puts ""
                 puts "Ran out of Attempts. Failed. Please Play Again"
                 break
-            else                
-                puts ""
-                puts "Make another guess, you have #{7-hangman.incorrect_guesses} attempts left"
-                newGuess = gets.chomp
-                hangman.guess_letter(newGuess)
-                hangman.display
+            else 
+                if hangman.counter == hangman.bingo
+                    puts " CONGRATULATIONS! YOU GUESSED THE RIGHT WORD"
+                    break;
+                else              
+                    puts ""
+                    puts "Make another guess, you have #{7-hangman.incorrect_guesses} attempts left"
+                    newGuess = gets.chomp
+                    hangman.guess_letter(newGuess)
+                    hangman.display
+                end
             end
         end
     when "2"
