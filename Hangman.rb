@@ -1,20 +1,20 @@
 class Hangman
     attr_reader :incorrect_guesses
     def initialize(word)
-       
+       word_lower = word.downcase
         @array_progress = []
         x = 0
-        while x < word.length
+        while x < word_lower.length
             @array_progress[x] = "__"
             x += 1
         end
 
         @array_all_letters =["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
         
-        @array_word = word.split(//)
+        @array_word = word_lower.split(//)
         @hash = Hash.new
         y = 0
-        while y < word.length
+        while y < word_lower.length
             @hash[y] = @array_word[y]
             y += 1
         end
@@ -24,19 +24,15 @@ class Hangman
 
     def guess_letter(letter)
         lower_letter = letter.downcase
-        if @incorrect_guesses == 7
-            puts "Ran out of Attempts. Failed. Please Play Again"
+        @array_all_letters.delete(lower_letter)
+        if @array_word.include? lower_letter
+            count = @array_word.count(lower_letter)
+            edit_progress(count,lower_letter)
+            puts "Match Found!"
         else
-            @array_all_letters.delete(lower_letter)
-            if @array_word.include? lower_letter
-                count = @array_word.count(lower_letter)
-                edit_progress(count,lower_letter)
-                puts "Match Found!"
-            else
-                puts "No Match. Try Again"
-                @incorrect_guesses += 1
-            end
-        end
+            puts "No Match. Try Again"
+            @incorrect_guesses += 1
+        end      
     end
 
     def display 
@@ -80,10 +76,12 @@ while true
         hangman.display
         while true
             if hangman.incorrect_guesses == 7
-                break
-            else
                 puts ""
-                puts "Make another guess, you have #{7-hangman.incorrect_guesses} attemps left"
+                puts "Ran out of Attempts. Failed. Please Play Again"
+                break
+            else                
+                puts ""
+                puts "Make another guess, you have #{7-hangman.incorrect_guesses} attempts left"
                 newGuess = gets.chomp
                 hangman.guess_letter(newGuess)
                 hangman.display
