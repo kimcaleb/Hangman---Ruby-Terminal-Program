@@ -10,9 +10,8 @@ class Hangman
             @array_progress[x] = "__"
             x += 1
         end
-
         @array_all_letters =["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-        
+
         @array_word = word_lower.split(//)
         @hash = Hash.new
         y = 0
@@ -25,16 +24,20 @@ class Hangman
     end 
 
     def guess_letter(letter)
-        lower_letter = letter.downcase
-        @array_all_letters.delete(lower_letter)
-        if @array_word.include? lower_letter
-            count = @array_word.count(lower_letter)
-            edit_progress(count,lower_letter)
-            puts "Match Found!"
+        if @array_all_letters.include? letter
+            lower_letter = letter.downcase
+            @array_all_letters.delete(lower_letter)
+            if @array_word.include? lower_letter
+                count = @array_word.count(lower_letter)
+                edit_progress(count,lower_letter)
+                puts "Match Found!"
+            else
+                puts "No Match. Try Again"
+                @incorrect_guesses += 1
+            end     
         else
-            puts "No Match. Try Again"
-            @incorrect_guesses += 1
-        end      
+            puts "Already used that letter. Pick Another"
+        end 
     end
 
     def display 
